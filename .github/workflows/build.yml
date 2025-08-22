@@ -34,7 +34,6 @@ jobs:
       env:
         ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
         ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: List build files
       run: |
@@ -48,32 +47,4 @@ jobs:
       with:
         name: electron-chat-app-windows
         path: dist/*.exe
-
-  release:
-    needs: build-windows
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/')
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Download Windows build
-      uses: actions/download-artifact@v4
-      with:
-        name: electron-chat-app-windows
-
-    - name: List downloaded files
-      run: |
-        echo "Downloaded files:"
-        ls -la
-
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: |
-          *.exe
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        retention-days: 30
