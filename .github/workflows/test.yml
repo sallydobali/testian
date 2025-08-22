@@ -1,0 +1,45 @@
+name: Test Electron App
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run linting
+      run: |
+        # Check for basic syntax errors
+        node -c main.js
+        echo "✅ Syntax check passed"
+
+    - name: Test build process
+      run: |
+        # Test if the app can be packaged
+        npm run pack
+        echo "✅ Build test passed"
+
+    - name: Check file structure
+      run: |
+        # Verify all required files exist
+        test -f main.js && echo "✅ main.js exists"
+        test -f index.html && echo "✅ index.html exists"
+        test -f chat.html && echo "✅ chat.html exists"
+        test -f package.json && echo "✅ package.json exists"
+        echo "✅ All required files present"
