@@ -34,6 +34,7 @@ jobs:
       env:
         ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
         ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Windows build
       uses: actions/upload-artifact@v4
