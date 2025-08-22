@@ -30,7 +30,7 @@ jobs:
         npm run postinstall
 
     - name: Build for Windows
-      run: npm run build:win
+      run: npm run build:win -- --publish never
       env:
         ELECTRON_CACHE: ${{ github.workspace }}/.cache/electron
         ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
