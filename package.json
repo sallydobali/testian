@@ -12,7 +12,8 @@
     "build:linux": "electron-builder --linux",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "electron-builder install-app-deps",
+    "preinstall": "npx only-allow npm"
   },
   "keywords": [
     "electron",
@@ -23,7 +24,7 @@
   "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^28.0.0",
+    "electron": "^28.3.3",
     "electron-builder": "^24.13.3"
   },
   "build": {
