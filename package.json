@@ -1,6 +1,6 @@
 {
   "name": "electron-chat-app",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Electron app with chat functionality",
   "main": "main.js",
   "scripts": {

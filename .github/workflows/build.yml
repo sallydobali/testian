@@ -36,11 +36,18 @@ jobs:
         ELECTRON_BUILDER_CACHE: ${{ github.workspace }}/.cache/electron-builder
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: List build files
+      run: |
+        echo "Files in dist directory:"
+        dir dist
+        echo "Files in current directory:"
+        dir
+
     - name: Upload Windows build
       uses: actions/upload-artifact@v4
       with:
         name: electron-chat-app-windows
-        path: dist/
+        path: dist/*.exe
 
   release:
     needs: build-windows
@@ -56,11 +63,16 @@ jobs:
       with:
         name: electron-chat-app-windows
 
+    - name: List downloaded files
+      run: |
+        echo "Downloaded files:"
+        ls -la
+
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          electron-chat-app-windows/**/*
+          *.exe
         draft: false
         prerelease: false
       env:
